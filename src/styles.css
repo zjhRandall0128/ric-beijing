@@ -695,6 +695,7 @@ svg {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 18px;
+  padding-bottom: 8px;
 }
 
 .news-card {
@@ -704,8 +705,7 @@ svg {
   position: relative;
   transition:
     border-color 0.3s ease,
-    box-shadow 0.3s ease,
-    transform 0.3s ease;
+    box-shadow 0.3s ease;
 }
 
 .news-card img {
@@ -731,9 +731,8 @@ svg {
 .news-card:hover {
   border-color: rgba(7, 94, 201, 0.34);
   box-shadow:
-    0 24px 46px rgba(6, 38, 74, 0.16),
+    0 18px 38px rgba(6, 38, 74, 0.15),
     0 0 26px rgba(31, 185, 232, 0.09);
-  transform: translateY(-8px);
 }
 
 .news-card:hover::before {
@@ -753,26 +752,26 @@ svg {
 }
 
 .news-card:hover .news-body {
-  transform: translateY(-3px);
+  transform: translateX(4px);
 }
 
 .news-body time {
   display: inline-block;
   margin-bottom: 10px;
+  border-radius: 999px;
   color: var(--blue-700);
   font-size: 12px;
   font-weight: 800;
+  line-height: 1.2;
+  padding: 4px 9px;
   transition:
     background 0.28s ease,
-    color 0.28s ease,
-    padding 0.28s ease;
+    color 0.28s ease;
 }
 
 .news-card:hover .news-body time {
-  border-radius: 999px;
   background: var(--blue-700);
   color: #fff;
-  padding: 4px 9px;
 }
 
 .news-body h3 {
