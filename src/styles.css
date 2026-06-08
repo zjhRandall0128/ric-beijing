@@ -120,17 +120,18 @@ svg {
 .primary-nav {
   display: flex;
   align-items: center;
-  gap: 2px;
+  gap: 6px;
 }
 
 .primary-nav a,
 .language {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 42px;
   gap: 7px;
   border: 0;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
@@ -138,17 +139,89 @@ svg {
   font-weight: 650;
   padding: 0 13px;
   white-space: nowrap;
+  overflow: hidden;
+  transform: translateY(0);
+  transition:
+    background 0.24s ease,
+    box-shadow 0.24s ease,
+    color 0.24s ease,
+    transform 0.24s ease;
+}
+
+.primary-nav a::before,
+.language::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(31, 185, 232, 0.28), transparent 58%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02));
+  content: "";
+  opacity: 0;
+  transform: scaleX(0.72);
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
+}
+
+.primary-nav a::after,
+.language::after {
+  position: absolute;
+  right: 13px;
+  bottom: 5px;
+  left: 13px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--cyan-500), #ffffff, var(--green-500));
+  box-shadow: 0 0 14px rgba(31, 185, 232, 0.62);
+  content: "";
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
 }
 
 .primary-nav a:hover,
+.primary-nav a:focus-visible,
+.language:focus-visible,
 .language:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 10px 22px rgba(0, 18, 50, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
   color: #fff;
+  transform: translateY(-2px);
+}
+
+.primary-nav a:hover::before,
+.primary-nav a:focus-visible::before,
+.language:hover::before,
+.language:focus-visible::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.primary-nav a:hover::after,
+.primary-nav a:focus-visible::after,
+.language:hover::after,
+.language:focus-visible::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .primary-nav a:first-child {
-  background: rgba(255, 255, 255, 0.16);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.12));
+  box-shadow:
+    0 12px 26px rgba(0, 18, 50, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   color: #fff;
+}
+
+.primary-nav a:first-child::after {
+  opacity: 1;
+  transform: scaleX(1);
 }
 
 .language svg {
@@ -1046,6 +1119,13 @@ svg {
   .primary-nav a,
   .language {
     justify-content: flex-start;
+    width: 100%;
+  }
+
+  .primary-nav a::after,
+  .language::after {
+    right: 12px;
+    left: 12px;
   }
 
   .hero {
