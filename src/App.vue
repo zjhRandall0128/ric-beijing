@@ -353,10 +353,10 @@
             <table class="capability-table">
               <thead>
                 <tr>
-                  <th>Instrument</th>
-                  <th>Measurand</th>
-                  <th>Calibration Specification</th>
-                  <th>Measurement Range</th>
+                  <th>Measurement Instruments</th>
+                  <th>Measurement Parameter</th>
+                  <th>Calibration Standards</th>
+                  <th>Measuring Range</th>
                   <th>Expanded Uncertainty (k=2)</th>
                 </tr>
               </thead>
@@ -620,67 +620,67 @@ const capabilityGroups = [
 
 const capabilityScope = [
   {
-    instrument: 'Total radiometer',
+    instrument: 'Pyranometer',
     measurand: 'Sensitivity',
-    specification: 'JJG458 Verification Regulation of Total Radiometers',
+    specification: 'Verification Regulation of Pyranometer JJG458',
     range: '(5~25) &micro;V/(W/m&sup2;)',
-    uncertainty: 'Urel = 1.6 %'
+    uncertainty: 'Urel=1.6 %'
   },
   {
-    instrument: 'Direct radiometer',
+    instrument: 'Pyrheliometer',
     measurand: 'Sensitivity',
-    specification: 'JJG456 Verification Regulation of Direct Radiometers',
+    specification: 'Verification Regulation of Pyrheliometer JJG456',
     range: '(5~15) &micro;V/(W/m&sup2;)',
-    uncertainty: 'Urel = 0.6 %'
+    uncertainty: 'Urel=0.6 %'
   },
   {
     instrument: 'Digital barometer',
     measurand: 'Pressure',
-    specification: 'JJG1084 Verification Regulation of Digital Barometers',
+    specification: 'Verification Regulation of Digital Barometers JJG1084',
     range: '(100~1200) hPa',
-    uncertainty: 'U = (1~4) Pa'
+    uncertainty: 'U=(1~4) Pa'
   },
   {
-    instrument: 'Standard mercury thermometer',
+    instrument: 'Standard mercury-in-glass thermometer',
     measurand: 'Temperature',
-    specification: 'JJG161 Verification Regulation of Standard Mercury Thermometers',
+    specification: 'Verification Regulation of Standard Mercury-in-Glass Thermometers JJG161',
     range: '(-60~80) °C',
-    uncertainty: 'U = 0.05 °C'
+    uncertainty: 'U=0.05 °C'
   },
   {
     instrument: 'Humidity sensor',
     measurand: 'Humidity',
-    specification: 'JJF1076 Calibration Specification for Humidity Sensors',
+    specification: 'Calibration Specification for Digital Temperature-hygrometers JJF1076',
     range: '(5~98) %RH',
-    uncertainty: 'U = (0.4~1.5) %RH'
+    uncertainty: 'U=(0.4~1.5) %RH'
   },
   {
-    instrument: 'Portable three-cup wind speed and direction anemometer',
+    instrument: 'Portable 3-cup wind direction anemometer',
     measurand: 'Wind speed',
-    specification: 'JJG431 Verification Regulation of Portable Three-cup Wind Speed and Direction Anemometers',
+    specification: 'Verification Regulation of Portable 3-Cup Anemometer JJG431',
     range: '(2~30) m/s',
-    uncertainty: 'U = 0.07 m/s'
+    uncertainty: 'U=0.07 m/s'
   },
   {
-    instrument: 'AWS wind direction and speed sensor',
+    instrument: 'Wind direction and speed sensor of automatic meteorological station',
     measurand: 'Wind speed',
-    specification: 'JJG (Meteorology) 004 Verification Regulation of AWS Wind Direction and Speed Sensors',
+    specification: 'Verification Regulation of Wind Direction and Wind Speed Sensor of Automatic Meteorological Station JJG (Meteorology) 004',
     range: '(2~40) m/s<br>(40~60) m/s',
-    uncertainty: 'U = 0.08 m/s<br>U = (0.08~0.18) m/s'
+    uncertainty: 'U=0.08 m/s<br>U=(0.08~0.18) m/s'
   },
   {
-    instrument: 'Wind-farm electric wind speed sensor',
+    instrument: 'Magnetoelectricity wind speed sensor for wind farm',
     measurand: 'Wind speed',
-    specification: 'JJF1431 Calibration Specification for Wind-farm Electric Wind Speed Sensors',
+    specification: 'Calibration Specification of Magnetoelectricity Wind Sensor for Wind Farm JJF1431',
     range: '(0.5~2) m/s',
-    uncertainty: 'U = (0.25~0.07) m/s'
+    uncertainty: 'U=(0.25~0.07) m/s'
   },
   {
-    instrument: 'Hot-ball anemometer',
+    instrument: 'Hot ball shaped anemometer',
     measurand: 'Wind speed',
-    specification: 'JJG (Construction) 0001 Verification Regulation of Hot-ball Anemometers',
+    specification: 'Metrological Verification Regulation of Hot Ball shaped Anemometer JJG (JG) 0001',
     range: '(2~30) m/s',
-    uncertainty: 'U = 0.07 m/s'
+    uncertainty: 'U=0.07 m/s'
   }
 ]
 
