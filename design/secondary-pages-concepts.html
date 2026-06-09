@@ -1,0 +1,552 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RIC Beijing Secondary Page Concepts</title>
+    <style>
+      :root {
+        --navy: #061b3d;
+        --navy-2: #073c87;
+        --blue: #075ec9;
+        --cyan: #1fb9e8;
+        --green: #2fb27d;
+        --orange: #ef8120;
+        --ink: #0c1b2f;
+        --muted: #607086;
+        --line: #d9e3ef;
+        --soft: #f3f8fd;
+        --soft-blue: #eaf5ff;
+        --white: #fff;
+        --shadow: 0 22px 55px rgba(6, 38, 74, 0.14);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        background: #dfeaf6;
+        color: var(--ink);
+        font-family:
+          Inter, "Segoe UI", Arial, "Microsoft YaHei", sans-serif;
+      }
+
+      .board {
+        display: grid;
+        grid-template-columns: repeat(2, 1440px);
+        gap: 70px;
+        width: max-content;
+        padding: 70px;
+      }
+
+      .page {
+        position: relative;
+        width: 1440px;
+        height: 1100px;
+        overflow: hidden;
+        background: var(--white);
+        box-shadow: 0 35px 90px rgba(6, 38, 74, 0.22);
+      }
+
+      .site-header {
+        position: absolute;
+        inset: 0 0 auto;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        height: 78px;
+        padding: 0 42px;
+        background: linear-gradient(90deg, #073366, #075ec9);
+        color: var(--white);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        min-width: 520px;
+      }
+
+      .logo {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.75);
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.96);
+        color: var(--blue);
+        font-weight: 900;
+      }
+
+      .brand strong,
+      .brand small {
+        display: block;
+        line-height: 1.15;
+      }
+
+      .brand strong {
+        font-size: 24px;
+      }
+
+      .brand small {
+        margin-top: 3px;
+        color: rgba(255, 255, 255, 0.84);
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+      }
+
+      .nav span {
+        position: relative;
+        min-width: 82px;
+        padding: 13px 12px;
+        border-radius: 8px;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .nav .wide {
+        min-width: 132px;
+      }
+
+      .nav .active {
+        background: rgba(255, 255, 255, 0.17);
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.2);
+      }
+
+      .nav .active::after {
+        position: absolute;
+        right: 16px;
+        bottom: 5px;
+        left: 16px;
+        height: 3px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--cyan), var(--white), var(--green));
+        content: "";
+      }
+
+      .hero {
+        position: relative;
+        height: 300px;
+        padding: 122px 60px 0;
+        background:
+          radial-gradient(circle at 82% 43%, rgba(31, 185, 232, 0.36), transparent 18%),
+          linear-gradient(90deg, rgba(3, 25, 56, 0.98), rgba(4, 40, 84, 0.74), rgba(4, 40, 84, 0.2)),
+          var(--navy);
+        color: var(--white);
+      }
+
+      .hero::before {
+        position: absolute;
+        inset: 0;
+        background:
+          repeating-linear-gradient(102deg, transparent 0 32px, rgba(31, 185, 232, 0.14) 33px, transparent 35px),
+          radial-gradient(circle at 74% 54%, rgba(7, 94, 201, 0.5), transparent 23%);
+        content: "";
+        opacity: 0.85;
+      }
+
+      .hero::after {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        height: 6px;
+        background: linear-gradient(90deg, var(--green), var(--cyan), var(--blue));
+        content: "";
+      }
+
+      .hero > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero .ai-mark {
+        position: absolute;
+        right: 150px;
+        top: 118px;
+        display: grid;
+        width: 150px;
+        height: 150px;
+        place-items: center;
+        border: 2px solid rgba(31, 185, 232, 0.7);
+        border-radius: 28px;
+        background: rgba(7, 94, 201, 0.42);
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 48px;
+        font-weight: 900;
+        box-shadow: 0 20px 50px rgba(0, 18, 50, 0.28);
+      }
+
+      .kicker {
+        margin: 0 0 12px;
+        color: var(--cyan);
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 720px;
+        font-size: 48px;
+        line-height: 1.05;
+      }
+
+      .hero-copy {
+        max-width: 720px;
+        margin-top: 16px;
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .section {
+        padding: 48px 60px 0;
+      }
+
+      .section-bar {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 22px;
+      }
+
+      h2 {
+        margin-top: 7px;
+        color: var(--ink);
+        font-size: 34px;
+        line-height: 1.12;
+      }
+
+      .link {
+        color: var(--blue);
+        font-size: 15px;
+        font-weight: 900;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+      }
+
+      .card {
+        position: relative;
+        min-height: 150px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--white);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        padding: 26px 24px 22px 92px;
+      }
+
+      .card::before {
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 7px;
+        background: linear-gradient(180deg, var(--cyan), var(--blue));
+        content: "";
+      }
+
+      .icon {
+        position: absolute;
+        top: 26px;
+        left: 24px;
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--blue), #063a86);
+        color: var(--white);
+        font-size: 13px;
+        font-weight: 900;
+        box-shadow: 0 14px 28px rgba(7, 94, 201, 0.25);
+      }
+
+      .card.green .icon {
+        background: linear-gradient(135deg, var(--green), #116f52);
+      }
+
+      .card.orange .icon {
+        background: linear-gradient(135deg, var(--orange), #b8550b);
+      }
+
+      .card.cyan .icon {
+        background: linear-gradient(135deg, var(--cyan), var(--blue));
+      }
+
+      .card h3 {
+        color: var(--ink);
+        font-size: 20px;
+        line-height: 1.22;
+      }
+
+      .card p {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 1.42;
+      }
+
+      .metric-strip,
+      .process,
+      .table {
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: linear-gradient(180deg, #fff, #f7fbff);
+        box-shadow: var(--shadow);
+      }
+
+      .process {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 14px;
+        padding: 26px;
+      }
+
+      .step {
+        position: relative;
+        min-height: 76px;
+        border: 1px solid #c7ddf5;
+        border-radius: 10px;
+        background: var(--white);
+        padding: 18px;
+        text-align: center;
+      }
+
+      .step strong {
+        display: block;
+        color: var(--ink);
+        font-size: 16px;
+      }
+
+      .step span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .cta {
+        position: absolute;
+        right: 60px;
+        bottom: 112px;
+        left: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 120px;
+        border-radius: 14px;
+        background:
+          radial-gradient(circle at 83% 50%, rgba(31, 185, 232, 0.22), transparent 24%),
+          linear-gradient(135deg, var(--navy), var(--blue));
+        box-shadow: var(--shadow);
+        color: var(--white);
+        padding: 34px 38px;
+      }
+
+      .cta h2 {
+        color: var(--white);
+        font-size: 28px;
+      }
+
+      .cta p {
+        margin-top: 9px;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .btn {
+        min-width: 160px;
+        padding: 15px 26px;
+        border-radius: 8px;
+        background: var(--white);
+        color: var(--blue);
+        font-weight: 900;
+        text-align: center;
+      }
+
+      .footer {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 78px;
+        padding: 0 60px;
+        background: var(--navy-2);
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .visual-panel {
+        min-height: 260px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background:
+          radial-gradient(circle at 78% 28%, rgba(31, 185, 232, 0.2), transparent 22%),
+          linear-gradient(135deg, #eef7ff, #fff);
+        box-shadow: var(--shadow);
+      }
+
+      .table {
+        overflow: hidden;
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr 1fr 0.8fr;
+        min-height: 58px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .row:last-child {
+        border-bottom: 0;
+      }
+
+      .row > span {
+        display: flex;
+        align-items: center;
+        padding: 0 22px;
+        color: var(--muted);
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .row.header {
+        background: var(--soft-blue);
+      }
+
+      .row.header > span {
+        color: var(--ink);
+        font-weight: 900;
+      }
+
+      .news-card {
+        min-height: 330px;
+        padding: 0;
+      }
+
+      .news-image {
+        height: 142px;
+        background:
+          radial-gradient(circle at 55% 48%, rgba(31, 185, 232, 0.26), transparent 25%),
+          linear-gradient(135deg, #d8ecff, #f7fbff);
+      }
+
+      .news-card .icon {
+        top: 98px;
+      }
+
+      .news-card .content {
+        padding: 46px 24px 24px;
+      }
+
+      .date {
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="board">
+      <section class="page">
+        <header class="site-header">
+          <div class="brand"><span class="logo">W</span><span><strong>RIC Beijing</strong><small>Regional Instrument Center of RA II</small></span></div>
+          <nav class="nav"><span>Home</span><span class="wide active">About & Contact</span><span>Services</span><span class="wide">Capabilities</span><span>Quality</span><span>Resources</span><span class="wide">News & Events</span></nav>
+        </header>
+        <div class="hero"><p class="kicker">RIC Beijing</p><h1>About & Contact</h1><p class="hero-copy">Learn about RIC Beijing, our role in WMO Region II, and how to reach the team.</p><div class="ai-mark">AI</div></div>
+        <div class="section split">
+          <div><p class="kicker">About RIC Beijing</p><h2>Regional instrument support for WMO Region II</h2><div class="visual-panel" style="margin-top:24px;padding:36px;"><p style="font-size:20px;font-weight:700;line-height:1.55;color:var(--ink)">RIC Beijing provides calibration, intercomparison and technical support for meteorological instruments, supporting national observing systems through traceability, quality assurance and capacity development.</p></div></div>
+          <div class="grid-1">
+            <div class="card"><span class="icon">RIC</span><h3>WMO RIC Designation</h3><p>Designated to support calibration and measurement traceability for meteorological instruments.</p></div>
+            <div class="card green" style="margin-top:18px;"><span class="icon">CN</span><h3>Based in Beijing</h3><p>Serving regional partners with consultation, workshops, comparison and calibration services.</p></div>
+          </div>
+        </div>
+        <div class="section"><div class="grid-4"><div class="card"><span class="icon">LOC</span><h3>Address</h3><p>No. 46, Zhongguancun South Street, Haidian District, Beijing.</p></div><div class="card green"><span class="icon">TEL</span><h3>Phone</h3><p>+86 10 6840 1234</p></div><div class="card cyan"><span class="icon">@</span><h3>Email</h3><p>ricbeijing@cma.gov.cn</p></div><div class="card orange"><span class="icon">REQ</span><h3>Service Scope</h3><p>Calibration, consultation, comparison and workshops.</p></div></div></div>
+        <footer class="footer"><span>© 2026 RIC Beijing Regional Instrument Center of RA II</span><span>Privacy Policy &nbsp;&nbsp; Terms of Use &nbsp;&nbsp; Sitemap</span></footer>
+      </section>
+
+      <section class="page">
+        <header class="site-header"><div class="brand"><span class="logo">W</span><span><strong>RIC Beijing</strong><small>Regional Instrument Center of RA II</small></span></div><nav class="nav"><span>Home</span><span class="wide">About & Contact</span><span class="active">Services</span><span class="wide">Capabilities</span><span>Quality</span><span>Resources</span><span class="wide">News & Events</span></nav></header>
+        <div class="hero"><p class="kicker">Our Services</p><h1>Services</h1><p class="hero-copy">Traceable calibration, intercomparison, technical support and capacity building for meteorological measurement quality.</p><div class="ai-mark">AI</div></div>
+        <div class="section"><div class="section-bar"><div><p class="kicker">Core Services</p><h2>Focused support across the measurement lifecycle</h2></div><span class="link">View all services →</span></div><div class="grid-3"><div class="card"><span class="icon">CAL</span><h3>Calibration Services</h3><p>Traceable calibration of temperature, humidity, pressure, wind, precipitation and radiation instruments.</p></div><div class="card cyan"><span class="icon">⇄</span><h3>Intercomparison</h3><p>Support for laboratory and instrument comparison activities to strengthen measurement confidence.</p></div><div class="card green"><span class="icon">SUP</span><h3>Technical Support</h3><p>Guidance on instrument operation, maintenance, uncertainty, QA and measurement procedures.</p></div></div></div>
+        <div class="section"><p class="kicker">Service Flow</p><h2>From request to traceable results</h2><div class="process" style="margin-top:24px;"><div class="step"><strong>Service Request</strong><span>Submit application</span></div><div class="step"><strong>Technical Review</strong><span>Confirm scope</span></div><div class="step"><strong>Calibration</strong><span>Perform service</span></div><div class="step"><strong>Certificate</strong><span>Issue report</span></div><div class="step"><strong>Follow-up</strong><span>Technical support</span></div></div></div>
+        <div class="cta"><div><h2>Ready to work with us?</h2><p>Contact RIC Beijing for calibration requests, technical support or collaboration.</p></div><div class="btn">Contact Us →</div></div><footer class="footer"><span>© 2026 RIC Beijing Regional Instrument Center of RA II</span><span>Privacy Policy &nbsp;&nbsp; Terms of Use &nbsp;&nbsp; Sitemap</span></footer>
+      </section>
+
+      <section class="page">
+        <header class="site-header"><div class="brand"><span class="logo">W</span><span><strong>RIC Beijing</strong><small>Regional Instrument Center of RA II</small></span></div><nav class="nav"><span>Home</span><span class="wide">About & Contact</span><span>Services</span><span class="wide active">Capabilities</span><span>Quality</span><span>Resources</span><span class="wide">News & Events</span></nav></header>
+        <div class="hero"><p class="kicker">Capabilities</p><h1>Calibration Capabilities</h1><p class="hero-copy">Measurement areas, ranges and laboratory capabilities supporting reliable observations.</p><div class="ai-mark">AI</div></div>
+        <div class="section"><div class="section-bar"><div><p class="kicker">Measurement Areas</p><h2>Key calibration capabilities</h2></div><span class="link">Download scope →</span></div><div class="grid-3"><div class="card"><span class="icon">TMP</span><h3>Temperature</h3><p>-90 °C to 60 °C</p></div><div class="card cyan"><span class="icon">RH</span><h3>Relative Humidity</h3><p>10 %RH to 98 %RH</p></div><div class="card green"><span class="icon">hPa</span><h3>Atmospheric Pressure</h3><p>500 hPa to 1100 hPa</p></div><div class="card"><span class="icon">WND</span><h3>Wind</h3><p>0.2 m/s to 80 m/s</p></div><div class="card cyan"><span class="icon">RN</span><h3>Precipitation</h3><p>0.1 mm to 300 mm/h</p></div><div class="card orange"><span class="icon">SUN</span><h3>Radiation / Other</h3><p>Solar, UV, evaporation and visibility.</p></div></div></div>
+        <div class="section"><div class="metric-strip" style="padding:26px 32px;"><p style="font-size:18px;font-weight:800;color:var(--ink)">Interaction idea: each measurement card opens a detailed scope panel with facilities, methods, ranges, uncertainty and application requirements.</p></div></div>
+        <footer class="footer"><span>© 2026 RIC Beijing Regional Instrument Center of RA II</span><span>Privacy Policy &nbsp;&nbsp; Terms of Use &nbsp;&nbsp; Sitemap</span></footer>
+      </section>
+
+      <section class="page">
+        <header class="site-header"><div class="brand"><span class="logo">W</span><span><strong>RIC Beijing</strong><small>Regional Instrument Center of RA II</small></span></div><nav class="nav"><span>Home</span><span class="wide">About & Contact</span><span>Services</span><span class="wide">Capabilities</span><span class="active">Quality</span><span>Resources</span><span class="wide">News & Events</span></nav></header>
+        <div class="hero"><p class="kicker">Quality System</p><h1>Quality & Accreditation</h1><p class="hero-copy">Quality management, traceability and recognition that support reliable calibration services.</p><div class="ai-mark">AI</div></div>
+        <div class="section"><div class="section-bar"><div><p class="kicker">Quality Foundation</p><h2>Traceability, standards and recognition</h2></div><span class="link">View accreditation scope →</span></div><div class="grid-4"><div class="card"><span class="icon">ISO</span><h3>ISO/IEC 17025</h3><p>Accredited quality management system.</p></div><div class="card cyan"><span class="icon">SI</span><h3>Traceability</h3><p>Traceable to SI units through national standards.</p></div><div class="card green"><span class="icon">WMO</span><h3>WMO Recognition</h3><p>Designated by the World Meteorological Organization.</p></div><div class="card orange"><span class="icon">REP</span><h3>Annual Reporting</h3><p>Regular reporting on activities and capabilities.</p></div></div></div>
+        <div class="section"><p class="kicker">Quality Process</p><h2>Controlled workflow for reliable service delivery</h2><div class="process" style="margin-top:24px;"><div class="step"><strong>Request Review</strong><span>Scope check</span></div><div class="step"><strong>Method Selection</strong><span>Procedure control</span></div><div class="step"><strong>Calibration</strong><span>Environment control</span></div><div class="step"><strong>Uncertainty</strong><span>Evaluation</span></div><div class="step"><strong>Approval</strong><span>Report release</span></div></div></div>
+        <div class="cta"><div><h2>Quality you can rely on</h2><p>Traceable, controlled and documented calibration services for meteorological observations.</p></div><div class="btn">Learn More →</div></div><footer class="footer"><span>© 2026 RIC Beijing Regional Instrument Center of RA II</span><span>Privacy Policy &nbsp;&nbsp; Terms of Use &nbsp;&nbsp; Sitemap</span></footer>
+      </section>
+
+      <section class="page">
+        <header class="site-header"><div class="brand"><span class="logo">W</span><span><strong>RIC Beijing</strong><small>Regional Instrument Center of RA II</small></span></div><nav class="nav"><span>Home</span><span class="wide">About & Contact</span><span>Services</span><span class="wide">Capabilities</span><span>Quality</span><span class="active">Resources</span><span class="wide">News & Events</span></nav></header>
+        <div class="hero"><p class="kicker">Knowledge Center</p><h1>Resources</h1><p class="hero-copy">Guides, application templates, technical publications and useful links for NMHSs and partners.</p><div class="ai-mark">AI</div></div>
+        <div class="section"><div class="section-bar"><div><p class="kicker">Resource Center</p><h2>Documents and references for service users</h2></div><span class="link">View all resources →</span></div><div class="grid-4"><div class="card"><span class="icon">PDF</span><h3>Calibration Guides</h3><p>Procedures and service preparation guidance.</p></div><div class="card green"><span class="icon">DOC</span><h3>Application Forms</h3><p>Request forms, templates and checklists.</p></div><div class="card cyan"><span class="icon">PUB</span><h3>Technical Publications</h3><p>Measurement notes and technical reports.</p></div><div class="card orange"><span class="icon">LINK</span><h3>Useful Links</h3><p>WMO guidance and standards references.</p></div></div></div>
+        <div class="section"><p class="kicker">Download Area</p><h2>Publication list</h2><div class="table" style="margin-top:24px;"><div class="row header"><span>Document Name</span><span>Category</span><span>Updated</span><span>Action</span></div><div class="row"><span>Calibration Request Guide</span><span>Guide</span><span>2026</span><span class="link">Download</span></div><div class="row"><span>Instrument Submission Checklist</span><span>Template</span><span>2026</span><span class="link">Download</span></div></div></div>
+        <footer class="footer"><span>© 2026 RIC Beijing Regional Instrument Center of RA II</span><span>Privacy Policy &nbsp;&nbsp; Terms of Use &nbsp;&nbsp; Sitemap</span></footer>
+      </section>
+
+      <section class="page">
+        <header class="site-header"><div class="brand"><span class="logo">W</span><span><strong>RIC Beijing</strong><small>Regional Instrument Center of RA II</small></span></div><nav class="nav"><span>Home</span><span class="wide">About & Contact</span><span>Services</span><span class="wide">Capabilities</span><span>Quality</span><span>Resources</span><span class="wide active">News & Events</span></nav></header>
+        <div class="hero"><p class="kicker">Latest Updates</p><h1>News & Events</h1><p class="hero-copy">Latest service updates, workshops, reports and regional collaboration activities.</p><div class="ai-mark">AI</div></div>
+        <div class="section"><div class="section-bar"><div><p class="kicker">News & Events</p><h2>Latest activities and service updates</h2></div><span class="link">View archive →</span></div><div class="grid-3"><div class="card news-card"><div class="news-image"></div><span class="icon">NEWS</span><div class="content"><p class="date">23-27 Jun 2026</p><h3>Region II Instrument Calibration Workshop</h3><p>A focused training event for calibration methods and laboratory practice.</p></div></div><div class="card news-card"><div class="news-image"></div><span class="icon">NEW</span><div class="content"><p class="date">28 Apr 2026</p><h3>New pyranometer calibration service available</h3><p>Expanded support for solar radiation instrument quality and traceability.</p></div></div><div class="card news-card"><div class="news-image"></div><span class="icon">REP</span><div class="content"><p class="date">10 Apr 2026</p><h3>RIC Beijing annual report 2025 published</h3><p>Annual activities, capability updates and service statistics are now available.</p></div></div></div></div>
+        <div class="section"><p class="kicker">Event Calendar</p><h2>Upcoming workshops and training opportunities</h2><div class="table" style="margin-top:24px;"><div class="row header"><span>Workshop / Event</span><span>Date</span><span>Format</span><span>Action</span></div><div class="row"><span>Humidity Calibration Workshop</span><span>Jul 2026</span><span>Training</span><span class="link">Register</span></div></div></div>
+        <footer class="footer"><span>© 2026 RIC Beijing Regional Instrument Center of RA II</span><span>Privacy Policy &nbsp;&nbsp; Terms of Use &nbsp;&nbsp; Sitemap</span></footer>
+      </section>
+    </main>
+  </body>
+</html>
