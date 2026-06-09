@@ -674,6 +674,13 @@ svg {
   position: relative;
   aspect-ratio: 1.45;
   background: var(--soft-blue);
+  overflow: visible;
+}
+
+.capability-photo {
+  position: absolute;
+  inset: 0;
+  display: block;
   overflow: hidden;
 }
 

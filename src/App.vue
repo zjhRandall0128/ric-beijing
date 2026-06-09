@@ -87,7 +87,9 @@
         <div class="capability-grid">
           <article v-for="capability in capabilities" :key="capability.title" class="capability-card">
             <div class="capability-image">
-              <img :src="capability.image" :alt="capability.alt" />
+              <span class="capability-photo">
+                <img :src="capability.image" :alt="capability.alt" />
+              </span>
               <span class="image-badge">
                 <component :is="capability.icon" />
               </span>
