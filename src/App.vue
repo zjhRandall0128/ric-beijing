@@ -1,7 +1,7 @@
-<template>
+﻿<template>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="#" aria-label="RIC Beijing home">
+      <a class="brand" href="#" aria-label="RIC Beijing home" @click.prevent="navigate('Home')">
         <span class="brand-logo-wrap">
           <img class="brand-logo" src="./assets/wmo-logo.png" alt="WMO emblem" />
         </span>
@@ -17,7 +17,15 @@
       </button>
 
       <nav :class="['primary-nav', { 'is-open': isMenuOpen }]" aria-label="Primary navigation">
-        <a v-for="item in navItems" :key="item" href="#">{{ item }}</a>
+        <a
+          v-for="item in navItems"
+          :key="item"
+          href="#"
+          :class="{ 'is-active': activePage === item }"
+          @click.prevent="navigate(item)"
+        >
+          {{ item }}
+        </a>
         <button class="language" type="button">
           <GlobeIcon />
           EN
@@ -26,7 +34,7 @@
       </nav>
     </header>
 
-    <main>
+    <main v-if="activePage === 'Home'">
       <section class="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -41,7 +49,7 @@
               <CalendarIcon />
               Request Calibration Service
             </a>
-            <a class="button button-secondary" href="#">
+            <a class="button button-secondary" href="#" @click.prevent="navigate('Capabilities')">
               <ChartIcon />
               View Capabilities
             </a>
@@ -81,7 +89,7 @@
             <p class="section-kicker">Calibration Capabilities</p>
             <h2>Key measurement areas</h2>
           </div>
-          <a href="#" class="text-link">View all capabilities <ArrowRightIcon /></a>
+          <a href="#" class="text-link" @click.prevent="navigate('Capabilities')">View all capabilities <ArrowRightIcon /></a>
         </div>
 
         <div class="capability-grid">
@@ -153,6 +161,104 @@
       </section>
     </main>
 
+    <main v-else-if="activePage === 'Capabilities'" class="subpage">
+      <section class="subpage-hero capabilities-hero">
+        <div>
+          <p class="eyebrow">Calibration Capabilities</p>
+          <h1>CNAS-recognized calibration and measurement capability scope</h1>
+          <p class="hero-copy">
+            Measurement capability ranges for RIC Beijing laboratories, including
+            radiation, pressure, temperature, humidity and wind speed instruments.
+          </p>
+        </div>
+        <aside class="hero-note capability-note">
+          <GaugeIcon />
+          <div>
+            <strong>Laboratory capability scope</strong>
+            <span>Recognized specifications, ranges and expanded uncertainty, k = 2.</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="section capability-detail-section">
+        <div class="section-bar">
+          <div>
+            <p class="section-kicker">Measurement Scope</p>
+            <h2>Key calibration capabilities</h2>
+          </div>
+          <a href="#" class="text-link">Download scope document <ArrowRightIcon /></a>
+        </div>
+
+        <div class="capability-summary-grid">
+          <article v-for="group in capabilityGroups" :key="group.title" class="capability-summary-card">
+            <component :is="group.icon" />
+            <strong>{{ group.title }}</strong>
+            <span>{{ group.description }}</span>
+          </article>
+        </div>
+
+        <div class="capability-table-card">
+          <div class="table-heading">
+            <div>
+              <p class="section-kicker">CNAS Recognized Scope</p>
+              <h3>Laboratory calibration and measurement capability range</h3>
+            </div>
+            <span>Expanded uncertainty, k = 2</span>
+          </div>
+          <div class="capability-table-wrap">
+            <table class="capability-table">
+              <thead>
+                <tr>
+                  <th>Instrument</th>
+                  <th>Measurand</th>
+                  <th>Calibration Specification</th>
+                  <th>Measurement Range</th>
+                  <th>Expanded Uncertainty (k=2)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in capabilityScope" :key="item.instrument">
+                  <td>{{ item.instrument }}</td>
+                  <td>{{ item.measurand }}</td>
+                  <td>{{ item.specification }}</td>
+                  <td v-html="item.range"></td>
+                  <td v-html="item.uncertainty"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="contact-cta">
+        <div>
+          <p class="section-kicker">Service Request</p>
+          <h2>Need a detailed calibration scope?</h2>
+          <p>
+            Contact RIC Beijing for instrument-specific capability confirmation,
+            calibration requirements and technical consultation.
+          </p>
+        </div>
+        <a class="button button-light" href="#">
+          Contact Us
+          <ArrowRightIcon />
+        </a>
+      </section>
+    </main>
+
+    <main v-else class="subpage">
+      <section class="subpage-hero">
+        <div>
+          <p class="eyebrow">{{ activePage }}</p>
+          <h1>{{ activePage }}</h1>
+          <p class="hero-copy">
+            This section will follow the same RIC Beijing visual system and will
+            be developed after the page content is confirmed.
+          </p>
+        </div>
+      </section>
+    </main>
+
     <footer class="site-footer">
       <span>© 2026 RIC Beijing Regional Instrument Center of RA II.</span>
       <nav aria-label="Footer navigation">
@@ -214,6 +320,13 @@ function icon(path) {
 }
 
 const isMenuOpen = ref(false)
+const activePage = ref('Home')
+
+function navigate(page) {
+  activePage.value = page
+  isMenuOpen.value = false
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
 
 const navItems = [
   'Home',
@@ -246,7 +359,7 @@ const services = [
 const capabilities = [
   {
     title: 'Temperature',
-    range: '-90 °C to 60 °C',
+    range: '-90 掳C to 60 掳C',
     image: capTemperature,
     alt: 'Temperature calibration chamber in a laboratory',
     icon: ThermometerIcon
@@ -285,6 +398,95 @@ const capabilities = [
     image: capRadiation,
     alt: 'Solar radiation measurement equipment outdoors',
     icon: SunIcon
+  }
+]
+
+const capabilityGroups = [
+  {
+    title: 'Radiation',
+    description: 'Total and direct radiation sensitivity calibration.',
+    icon: SunIcon
+  },
+  {
+    title: 'Pressure',
+    description: 'Digital barometer pressure calibration from 100 hPa to 1200 hPa.',
+    icon: GaugeIcon
+  },
+  {
+    title: 'Temperature & Humidity',
+    description: 'Standard thermometer and humidity sensor calibration.',
+    icon: ThermometerIcon
+  },
+  {
+    title: 'Wind Speed',
+    description: 'Cup anemometers, AWS sensors and wind-field instruments.',
+    icon: WindIcon
+  }
+]
+
+const capabilityScope = [
+  {
+    instrument: 'Total radiometer',
+    measurand: 'Sensitivity',
+    specification: 'JJG458 Verification Regulation of Total Radiometers',
+    range: '(5~25) 渭V/(W/m虏)',
+    uncertainty: 'Urel = 1.6 %'
+  },
+  {
+    instrument: 'Direct radiometer',
+    measurand: 'Sensitivity',
+    specification: 'JJG456 Verification Regulation of Direct Radiometers',
+    range: '(5~15) 渭V/(W/m虏)',
+    uncertainty: 'Urel = 0.6 %'
+  },
+  {
+    instrument: 'Digital barometer',
+    measurand: 'Pressure',
+    specification: 'JJG1084 Verification Regulation of Digital Barometers',
+    range: '(100~1200) hPa',
+    uncertainty: 'U = (1~4) Pa'
+  },
+  {
+    instrument: 'Standard mercury thermometer',
+    measurand: 'Temperature',
+    specification: 'JJG161 Verification Regulation of Standard Mercury Thermometers',
+    range: '(-60~80) 掳C',
+    uncertainty: 'U = 0.05 掳C'
+  },
+  {
+    instrument: 'Humidity sensor',
+    measurand: 'Humidity',
+    specification: 'JJF1076 Calibration Specification for Humidity Sensors',
+    range: '(5~98) %RH',
+    uncertainty: 'U = (0.4~1.5) %RH'
+  },
+  {
+    instrument: 'Portable three-cup wind speed and direction anemometer',
+    measurand: 'Wind speed',
+    specification: 'JJG431 Verification Regulation of Portable Three-cup Wind Speed and Direction Anemometers',
+    range: '(2~30) m/s',
+    uncertainty: 'U = 0.07 m/s'
+  },
+  {
+    instrument: 'AWS wind direction and speed sensor',
+    measurand: 'Wind speed',
+    specification: 'JJG (Meteorology) 004 Verification Regulation of AWS Wind Direction and Speed Sensors',
+    range: '(2~40) m/s<br>(40~60) m/s',
+    uncertainty: 'U = 0.08 m/s<br>U = (0.08~0.18) m/s'
+  },
+  {
+    instrument: 'Wind-farm electric wind speed sensor',
+    measurand: 'Wind speed',
+    specification: 'JJF1431 Calibration Specification for Wind-farm Electric Wind Speed Sensors',
+    range: '(0.5~2) m/s',
+    uncertainty: 'U = (0.25~0.07) m/s'
+  },
+  {
+    instrument: 'Hot-ball anemometer',
+    measurand: 'Wind speed',
+    specification: 'JJG (Construction) 0001 Verification Regulation of Hot-ball Anemometers',
+    range: '(2~30) m/s',
+    uncertainty: 'U = 0.07 m/s'
   }
 ]
 
@@ -336,3 +538,4 @@ const quality = [
 ]
 
 </script>
+
